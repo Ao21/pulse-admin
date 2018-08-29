@@ -1,0 +1,70 @@
+<header>
+  <h1>Surveys: Create</h1>
+</header>
+<section class="container">
+  <mat-horizontal-stepper [linear]="true" #stepper>
+
+    <mat-step label="Details" [stepControl]="detailsGroup">
+      <form [formGroup]="detailsGroup">
+        <mat-form-field>
+          <input name="pollName" formControlName="name" matInput placeholder="Poll Name">
+        </mat-form-field>
+        <mat-form-field>
+          <input name="pollDescription" formControlName="description" matInput placeholder="Description">
+        </mat-form-field>
+        <section>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </section>
+      </form>
+    </mat-step>
+
+    <mat-step label="Questions" [stepControl]="questionsGroup">
+
+      <mat-button-toggle-group (change)="setScale($event)" name="fontStyle" aria-label="Font Style">
+        <mat-button-toggle *ngFor="let scale of questionScale | keyvalue" [value]="scale.key">{{scale.value}}</mat-button-toggle>
+      </mat-button-toggle-group>
+      <form [formGroup]="questionsGroup">
+        <mat-form-field>
+          <input name="question" formControlName="question" matInput placeholder="Question">
+        </mat-form-field>
+      </form>
+      <section>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </section>
+    </mat-step>
+
+    <mat-step label="Recipients" [stepControl]="recipientsGroup">
+      <section>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </section>
+    </mat-step>
+
+    <mat-step label="Schedule">
+      <form [formGroup]="scheduleGroup">
+        <mat-form-field>
+          <input matInput formControlName="startDate" [matDatepicker]="startDatePicker" placeholder="Choose a date">
+          <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+          <mat-datepicker #startDatePicker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput formControlName="endDate" [matDatepicker]="endDatePicker" placeholder="Choose a date">
+          <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+          <mat-datepicker #endDatePicker></mat-datepicker>
+        </mat-form-field>
+
+        <section>
+            <button mat-button matStepperPrevious>Back</button>
+            <button (click)="completeForm()" mat-button >Save</button>
+
+          </section>
+      </form>
+
+
+    </mat-step>
+  </mat-horizontal-stepper>
+
+</section>

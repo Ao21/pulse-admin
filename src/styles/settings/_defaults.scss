@@ -1,0 +1,23 @@
+$global-font-size: 14px!default;
+$global-line-height: 21px!default;
+
+$global-spacing-unit: round($global-line-height) !default;
+
+$global-padding: 16px;
+
+$spacing-unit-tiny: 0.25!default;
+$spacing-unit-small: 0.5!default;
+$spacing-unit-large: 2!default;
+$spacing-unit-huge: 4!default;
+
+$spacing-xs: round($global-spacing-unit * $spacing-unit-tiny);
+$spacing-s: round($global-spacing-unit * $spacing-unit-small);
+$spacing-m: round($global-spacing-unit);
+$spacing-l: round($global-spacing-unit * $spacing-unit-large);
+$spacing-xl: round($global-spacing-unit * $spacing-unit-huge);
+
+
+@mixin defaultMargin {
+  margin: $spacing-m $spacing-m $spacing-m;
+}
+

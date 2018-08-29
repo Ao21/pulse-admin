@@ -1,0 +1,13 @@
+@import '~@angular/material/theming';
+
+@include mat-core();
+$pulse-app-primary: mat-palette($mat-black-primary);
+$pulse-app-accent:  mat-palette($mat-black-primary);
+$pulse-app-warn:    mat-palette($mat-red);
+
+$pulse-app-theme: mat-light-theme($pulse-app-primary, $pulse-app-accent, $pulse-app-warn);
+
+@include angular-material-theme($pulse-app-theme);
+
+
+@import './theme.overrides';

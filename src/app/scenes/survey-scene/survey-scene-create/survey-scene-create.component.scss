@@ -1,0 +1,21 @@
+@import 'src/styles/settings/settings';
+@import 'src/styles/objects/object.scene';
+:host {
+
+  @include SceneBase();
+  @include SceneHeader();
+
+  .container {
+    margin: 0 $spacing-m;
+    background-color: white;
+    border-radius: 5px;
+  }
+
+  form {
+    margin-top: $spacing-m;
+    max-width: 350px;
+    display: flex;
+    flex-direction: column;
+  }
+
+}

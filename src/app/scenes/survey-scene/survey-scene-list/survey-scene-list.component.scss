@@ -1,0 +1,8 @@
+@import 'src/styles/settings/settings';
+@import 'src/styles/objects/object.scene';
+:host {
+
+  @include SceneBase();
+  @include SceneHeader();
+
+}
