@@ -9,7 +9,6 @@ import { Scale } from "./globalTypes";
 
 export interface PollFragment {
   __typename: "Poll";
-  id: string;
   name: string;
   scale: Scale;
   startDate: any;

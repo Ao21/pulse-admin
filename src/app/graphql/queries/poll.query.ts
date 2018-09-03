@@ -11,6 +11,16 @@ export const PollFragment = gql`
   }
 `;
 
+export const PollResponseFragment = gql`
+  fragment PollResponseFragment on PollResponse {
+    userId
+    pollId
+    answerYN
+    answerString
+    answerNumeric
+  }
+`;
+
 export const createPollMutation = gql`
   mutation createPoll($poll: PollInput!) {
     createPoll(poll: $poll) {
@@ -18,4 +28,27 @@ export const createPollMutation = gql`
     }
   }
   ${PollFragment}
+`;
+
+export const deletePollMutation = gql`
+  mutation deletePoll($id: String!) {
+    deletePoll(id: $id)
+  }
+`;
+
+export const getPollsQuery = gql`
+  query GetPollsWithResponses {
+    pollsWithResponses {
+      polls {
+        id
+        ...PollFragment
+      }
+      responses {
+        id
+        ...PollResponseFragment
+      }
+    }
+  }
+  ${PollFragment}
+  ${PollResponseFragment}
 `;
