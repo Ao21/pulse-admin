@@ -20,19 +20,5 @@ export class CoreModule {
       link: from([httpLink.create({})]),
       cache: new InMemoryCache(),
     });
-
-    apollo
-      .query({
-        query: gql`
-          query {
-            moods {
-              id
-            }
-          }
-        `,
-      })
-      .subscribe(next => {
-        console.log(next);
-      });
   }
 }

@@ -1,14 +1,15 @@
 /* tslint:disable */
 // This file was automatically generated and should not be edited.
 
-import { PollInput, Scale } from "./globalTypes";
+import { Scale } from "./globalTypes";
 
 // ====================================================
-// GraphQL mutation operation: createPoll
+// GraphQL query operation: getPolls
 // ====================================================
 
-export interface createPoll_createPoll {
+export interface getPolls_polls {
   __typename: "Poll";
+  id: string;
   name: string;
   scale: Scale;
   startDate: any;
@@ -17,10 +18,6 @@ export interface createPoll_createPoll {
   subjects: string[];
 }
 
-export interface createPoll {
-  createPoll: createPoll_createPoll;
-}
-
-export interface createPollVariables {
-  poll: PollInput;
+export interface getPolls {
+  polls: getPolls_polls[];
 }

@@ -5,4 +5,12 @@
   @include SceneBase();
   @include SceneHeader();
 
+  & > section {
+    @include defaultMargin();
+  }
+
+  table {
+    width: 100%;
+  }
+
 }
