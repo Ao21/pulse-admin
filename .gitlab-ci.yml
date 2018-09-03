@@ -1,0 +1,65 @@
+image: artifactory-docker.artifactory.cib.echonet:443/library/docker
+
+before_script:
+- docker info
+- docker login artifactory-docker.artifactory.cib.echonet:443 -u c09808 -p $CI_JOB_TOKEN
+
+stages:
+  - build
+  - deploy
+
+build:
+  stage: build
+  script:
+    - docker build --build-arg npm_token=$NPM_TOKEN --build-arg href=pulseadmin-$CI_COMMIT_REF_SLUG -t pulse-admin .
+    - docker create --name build-pulse-admin pulse-admin
+    - docker cp build-pulse-admin:/usr/src/app/dist/ ./public/
+    - docker rm build-pulse-admin
+  artifacts:
+    paths:
+      - public/
+    expire_in: 1 hour
+  tags:
+    - pulse
+
+deploy_review:
+  stage: deploy
+  environment:
+    name: review/$CI_COMMIT_REF_NAME
+    url: http://EURVLII15641.xmp.net.intra/pulseadmin-$CI_COMMIT_REF_SLUG
+  script:
+    - rm -rf /usr/public/$CI_COMMIT_REF_SLUG
+    - cp -av --force public /usr/public/pulseadmin-$CI_COMMIT_REF_SLUG
+  only:
+    - branches
+  except:
+    - master
+  tags:
+    - pulse
+
+deploy_staging:
+  stage: deploy
+  script:
+    - rm -rf /usr/public/pulseadmin-$CI_COMMIT_REF_SLUG
+    - mkdir /usr/public/pulseadmin-$CI_COMMIT_REF_SLUG
+    - cp -av --force public/* /usr/public/pulseadmin-$CI_COMMIT_REF_SLUG
+  environment:
+    name: staging
+    url: http://EURVLII15641.xmp.net.intra/pulseadmin-$CI_COMMIT_REF_SLUG
+  only:
+    - master
+  tags:
+    - pulse
+
+stop_review:
+  stage: deploy
+  variables:
+    GIT_STRATEGY: none
+  script:
+    - rm -rf /usr/public/pulseadmin-$CI_COMMIT_REF_SLUG
+  when: manual
+  environment:
+    name: review/$CI_COMMIT_REF_NAME
+    action: stop
+  tags:
+    - pulse
